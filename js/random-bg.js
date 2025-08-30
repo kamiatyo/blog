@@ -44,7 +44,7 @@
   bg.style.backgroundImage = 'url(' + images[idx] + ')';
   bg.style.backgroundSize = 'cover';
   bg.style.backgroundPosition = 'center';
-  bg.style.filter = 'blur(10px)'; // 可根據 _config.stellar.yml 調整
+  bg.style.filter = 'blur(7px)'; // 可根據 _config.stellar.yml 調整
   document.body.appendChild(bg);
 
   // 建立遮罩層
@@ -63,9 +63,9 @@
       theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
     if (theme === 'dark') {
-      mask.style.background = 'rgba(0,0,0,0.35)';
+      mask.style.background = 'rgba(0,0,0,0.3)';
     } else {
-      mask.style.background = 'rgba(255,255,255,0.35)';
+      mask.style.background = 'rgba(255,255,255,0.5)';
     }
   }
   setMaskColor();
