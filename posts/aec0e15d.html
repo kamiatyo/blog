@@ -17,27 +17,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
   <meta name="theme-color" content="#f9fafb">
-  <title>Hello World - 카ミㄚちょ</title>
+  <title>如何在Ubuntu 24.04構建i686交叉編譯環境？ - 카ミㄚちょ</title>
 
   
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+    <meta name="description" content="背景前幾天準備寫OS時一直提示我沒有i686-elf-gcc，使用Ubuntu自帶的apt工具下載卻無法定位該包。 Ubuntu提示Unable to locate package i686-elf-gcc  而寫OS這種跟底層有關的裸機編程不可以使用原生gcc，于是我便在Ubuntu的倉庫裡面亂翻，試圖翻出些有用的替代品，結果裡面一個和i686-elf-gcc有關係的都沒有。 于是我只好Goog">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://comiftaltrol.pages.dev/posts/4a17b156">
+<meta property="og:title" content="如何在Ubuntu 24.04構建i686交叉編譯環境？">
+<meta property="og:url" content="https://comiftaltrol.pages.dev/posts/aec0e15d">
 <meta property="og:site_name" content="카ミㄚちょ">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="背景前幾天準備寫OS時一直提示我沒有i686-elf-gcc，使用Ubuntu自帶的apt工具下載卻無法定位該包。 Ubuntu提示Unable to locate package i686-elf-gcc  而寫OS這種跟底層有關的裸機編程不可以使用原生gcc，于是我便在Ubuntu的倉庫裡面亂翻，試圖翻出些有用的替代品，結果裡面一個和i686-elf-gcc有關係的都沒有。 于是我只好Goog">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://comiftaltrol.pages.dev/images/root/avatar.png">
-<meta property="article:published_time" content="2024-02-04T06:09:49.000Z">
-<meta property="article:modified_time" content="2025-07-10T14:19:28.850Z">
+<meta property="article:published_time" content="2026-02-27T13:52:41.000Z">
+<meta property="article:modified_time" content="2026-02-27T15:22:44.005Z">
 <meta property="article:author" content="카ミㄚちょ">
-<meta property="article:tag" content="其他">
+<meta property="article:tag" content="計算機">
+<meta property="article:tag" content="底層開發">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://comiftaltrol.pages.dev/images/root/avatar.png">
   
   
   
-  <meta name="keywords" content="其他">
+  <meta name="keywords" content="計算機,底層開發">
 
   <!-- feed -->
   
@@ -53,7 +54,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"카ミㄚちょ","sameAs":[],"image":"/images/root/avatar.png"},"dateCreated":"2024-02-04T14:09:49+08:00","dateModified":"2025-07-10T22:19:28+08:00","datePublished":"2024-02-04T14:09:49+08:00","description":"","headline":"Hello World","mainEntityOfPage":{"@type":"WebPage","@id":"https://comiftaltrol.pages.dev/posts/4a17b156/"},"publisher":{"@type":"Organization","name":"카ミㄚちょ","sameAs":[],"image":"/images/root/avatar.png","logo":{"@type":"ImageObject","url":"/images/root/avatar.png"}},"url":"https://comiftaltrol.pages.dev/posts/4a17b156/","keywords":"其他","thumbnailUrl":"/images/root/banner.jpg","image":1}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"카ミㄚちょ","sameAs":[],"image":"/images/root/avatar.png"},"dateCreated":"2026-02-27T21:52:41+08:00","dateModified":"2026-02-27T23:22:44+08:00","datePublished":"2026-02-27T21:52:41+08:00","description":"","headline":"如何在Ubuntu 24.04構建i686交叉編譯環境？","mainEntityOfPage":{"@type":"WebPage","@id":"https://comiftaltrol.pages.dev/posts/aec0e15d/"},"publisher":{"@type":"Organization","name":"카ミㄚちょ","sameAs":[],"image":"/images/root/avatar.png","logo":{"@type":"ImageObject","url":"/images/root/avatar.png"}},"url":"https://comiftaltrol.pages.dev/posts/aec0e15d/","keywords":"計算機, 底層開發","thumbnailUrl":"/images/blogs/aec0e15d/cover.png","image":1}</script>
   <link rel="preload" as="image" href="/images/root/spring.jpg"><link rel="preload" as="image" href="/images/root/summer.jpg"><link rel="preload" as="image" href="/images/root/autumn.jpg"><link rel="preload" as="image" href="/images/root/winter.jpg">
 </head>
 <body>
@@ -81,34 +82,52 @@
 
 
 
-<div class="article banner slide-up top"><img class="lazy bg" data-src="/images/root/banner.jpg">
+<div class="article banner slide-up top"><img class="lazy bg" data-src="/images/blogs/aec0e15d/cover.png">
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">首頁</a>
 <span class="sep"></span><a class="cap breadcrumb" href="/">網誌</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">發布於：<time datetime="2024-02-04T06:09:49.000Z">2024-02-04</time></span><span class="sep updated"></span><span class="text updated">更新於：<time datetime="2025-07-10T14:19:28.850Z">2025-07-10</time></span></div></div></div>
+<div class="flex-row" id="post-meta"><span class="text created">發布於：<time datetime="2026-02-27T13:52:41.000Z">2026-02-27</time></span><span class="sep updated"></span><span class="text updated">更新於：<time datetime="2026-02-27T15:22:44.005Z">2026-02-27</time></span></div></div></div>
     
     <div class="bottom only-title">
       
       <div class="text-area">
-        <h1 class="text title"><span>Hello World</span></h1>
+        <h1 class="text title"><span>如何在Ubuntu 24.04構建i686交叉編譯環境？</span></h1>
         
       </div>
     </div>
     
   </div>
-  </div><article class="md-text content slide-up"><p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+  </div><article class="md-text content slide-up"><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>前幾天準備寫OS時一直提示我沒有<strong>i686-elf-gcc</strong>，使用Ubuntu自帶的apt工具下載卻無法定位該包。</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="/images/blogs/aec0e15d/1.png" data-src="/images/blogs/aec0e15d/1.png" alt="Ubuntu提示Unable to locate package i686-elf-gcc"onerror="this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1em' height='1em' viewBox='0 0 24 24'%3E%3C!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --%3E%3Cpath fill='%23F44336' d='M22 12.698c-.002 1.47-.013 2.718-.096 3.743c-.097 1.19-.296 2.184-.74 3.009a4.2 4.2 0 0 1-.73.983c-.833.833-1.893 1.21-3.237 1.39C15.884 22 14.2 22 12.053 22h-.106c-2.148 0-3.83 0-5.144-.177c-1.343-.18-2.404-.557-3.236-1.39c-.738-.738-1.12-1.656-1.322-2.795c-.2-1.12-.236-2.512-.243-4.241Q1.999 12.737 2 12v-.054c0-2.148 0-3.83.177-5.144c.18-1.343.557-2.404 1.39-3.236s1.893-1.21 3.236-1.39c1.168-.157 2.67-.175 4.499-.177a.697.697 0 1 1 0 1.396c-1.855.002-3.234.018-4.313.163c-1.189.16-1.906.464-2.436.994S3.72 5.8 3.56 6.99C3.397 8.2 3.395 9.788 3.395 12v.784l.932-.814a2.14 2.14 0 0 1 2.922.097l3.99 3.99a1.86 1.86 0 0 0 2.385.207l.278-.195a2.79 2.79 0 0 1 3.471.209l2.633 2.37c.265-.557.423-1.288.507-2.32c.079-.972.09-2.152.091-3.63a.698.698 0 0 1 1.396 0' opacity='.5'/%3E%3Cpath fill='%23F44336' fill-rule='evenodd' d='M17.5 11c-2.121 0-3.182 0-3.841-.659S13 8.621 13 6.5s0-3.182.659-3.841S15.379 2 17.5 2s3.182 0 3.841.659S22 4.379 22 6.5s0 3.182-.659 3.841S19.621 11 17.5 11m-1.47-7.03a.75.75 0 1 0-1.06 1.06l1.47 1.47l-1.47 1.47a.75.75 0 0 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L18.56 6.5l1.47-1.47a.75.75 0 0 0-1.06-1.06L17.5 5.44z' clip-rule='evenodd'/%3E%3C/svg%3E&quot;"/><div class="lazy-icon" style="background-image:url(https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd);"></div></div><div class="image-meta"><span class="image-caption center">Ubuntu提示Unable to locate package i686-elf-gcc</span></div></div>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>而寫OS這種跟底層有關的裸機編程不可以使用原生gcc，于是我便在Ubuntu的倉庫裡面亂翻，試圖翻出些有用的替代品，結果裡面一個和i686-elf-gcc有關係的都沒有。</p>
+<p>于是我只好Google了，並且通過一頓查找，搜尋到了在<strong>騰訊雲開發者社區</strong>的一篇文章：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2030533">Ubuntu 18.04安装i686-elf交叉编译工具链的方法[通俗易懂]</a>。</p>
+<p>這個文章雖然講的是在<strong>2018年4月</strong>發佈的<strong>Ubuntu 18.04</strong>的方法，但是經過我的實踐，發現這則方法在<strong>Ubuntu 24.04</strong>也是有用的。</p>
+<p>下面則是這則方法的步驟，希望對你們有用<del>也是防止我以後忘了</del>。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>其實就是手動編譯<del>滿浪費時間的</del>，這是最經典也是最靈活的方法，可以完全控制編譯器的版本和配置</p>
+<h3 id="安裝必要的依賴"><a href="#安裝必要的依賴" class="headerlink" title="安裝必要的依賴"></a>安裝必要的依賴</h3><p>先打開Terminal，更新一下包列表<del>幾乎所有教程必備的第一步</del>並安裝編譯工具和依賴庫。執行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install build-essential bison flex libgmp3-dev libmpc-dev libmpfr-dev texinfo wget</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>這些都是編譯<strong>binutils</strong>和<strong>gcc</strong>所必備的工具和庫。</p>
+<h3 id="下載原始碼"><a href="#下載原始碼" class="headerlink" title="下載原始碼"></a>下載原始碼</h3><p>創建一個工作目錄（這裡我選的是<code>~/src</code>）並下載<strong>binutils</strong>和<strong>gcc</strong>的原始碼。版本號根據需要選擇，此處以較新的穩定版為example：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/src</span><br><span class="line">wget https://ftp.gnu.org/gnu/binutils/binutils-2.42.tar.xz</span><br><span class="line">wget https://ftp.gnu.org/gnu/gcc/gcc-14.2.0/gcc-14.2.0.tar.xz</span><br><span class="line">tar -xf binutils-2.42.tar.xz</span><br><span class="line">tar -xf gcc-14.2.0.tar.xz</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<h3 id="設定環境變數"><a href="#設定環境變數" class="headerlink" title="設定環境變數"></a>設定環境變數</h3><p>定義目標平臺和安裝前綴，方便後繼操作：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PREFIX=<span class="string">&quot;<span class="variable">$HOME</span>/opt/cross&quot;</span></span><br><span class="line"><span class="built_in">export</span> TARGET=i686-elf</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="string">&quot;<span class="variable">$PREFIX</span>/bin:<span class="variable">$PATH</span>&quot;</span></span><br></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<blockquote>
+<p>將<code>$HOME/opt/cross</code>設定為安裝路徑，可以保持系統整潔，也便於日後刪除或管理。</p>
+</blockquote>
+<h3 id="編譯安裝Binutils與GCC"><a href="#編譯安裝Binutils與GCC" class="headerlink" title="編譯安裝Binutils與GCC"></a>編譯安裝Binutils與GCC</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/src</span><br><span class="line"><span class="built_in">mkdir</span> build-binutils</span><br><span class="line"><span class="built_in">cd</span> build-binutils</span><br><span class="line">../binutils-2.42/configure --target=<span class="variable">$TARGET</span> --prefix=<span class="string">&quot;<span class="variable">$PREFIX</span>&quot;</span> --with-sysroot --disable-nls --disable-werror</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> ~/src</span><br><span class="line"><span class="comment"># GCC 的依赖脚本会自动下载 GMP、MPFR、MPC 等</span></span><br><span class="line"><span class="built_in">cd</span> gcc-14.2.0</span><br><span class="line">./contrib/download_prerequisites</span><br><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line"><span class="built_in">mkdir</span> build-gcc</span><br><span class="line"><span class="built_in">cd</span> build-gcc</span><br><span class="line">../gcc-14.2.0/configure --target=<span class="variable">$TARGET</span> --prefix=<span class="string">&quot;<span class="variable">$PREFIX</span>&quot;</span> --disable-nls --enable-languages=c,c++ --without-headers</span><br><span class="line">make all-gcc</span><br><span class="line">make all-target-libgcc</span><br><span class="line">make install-strip-gcc</span><br><span class="line">make install-strip-target-libgcc</span><br></pre></td></tr></table></figure>
+
+<p>編譯安裝過程會花費一點<del>很多</del>時間，請耐心等待<del>中間可以打會兒galgame什麼的</del>。</p>
+<h3 id="配置環境變數（永久生效）"><a href="#配置環境變數（永久生效）" class="headerlink" title="配置環境變數（永久生效）"></a>配置環境變數（永久生效）</h3><p>為了讓編譯器在任何新Terminal都可以使用，可以講下行加入到你的<code>~/.bashrc</code>（zsh則是<code>/.zshrc</code>）中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="string">&quot;<span class="variable">$HOME</span>/opt/cross/bin:<span class="variable">$PATH</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>之後執行<code>source ~/.bashrc</code>（zsh則是<code>source /.zshrc</code>）或者重啟Terminal。</p>
+<p>搞定。</p>
+<h2 id="結尾"><a href="#結尾" class="headerlink" title="結尾"></a>結尾</h2><p>其實Archlinux系的AUR倉庫是有i686-elf-gcc包的，如果實在不行也可以轉去Arch<del>（Canonical震怒）</del>。</p>
+<p>希望能幫到你們，這是我第一次寫技術性部落格。</p>
 </article>
 <div class="article-footer slide-up">
     <section id="license">
@@ -122,21 +141,21 @@
     <section id="share">
       <div class="header"><span>分享文章</span></div>
       <div class="body">
-        <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://comiftaltrol.pages.dev/posts/4a17b156" /></div>
+        <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://comiftaltrol.pages.dev/posts/aec0e15d" /></div>
         <div class="social-wrap dis-select"><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;複製成功&quot;)"><img  src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/8411ed322ced6.svg" /></a></div>
         
       </div>
     </section>
     </div>
 
-<div class="related-wrap slide-up" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">較新文章</div><a href="/posts/27788a71/">語言·漢語拼音</a></div><div class="item" id="next"></div></section></div>
+<div class="related-wrap slide-up" id="read-next"><section class="body"><div class="item" id="prev"></div><div class="item" id="next"><div class="note">較早文章</div><a href="/posts/b4596633/">總結一下個人的OI生涯</a></div></section></div>
 
 <div class="related-wrap slide-up" id="related-posts">
     <section class='header'>
       <div class='title cap theme'>您可能感興趣的文章</div>
     </section>
     <section class='body'>
-    <div class="related-posts"><a class="item" href="\posts\aec0e15d.html" title="如何在Ubuntu 24.04構建i686交叉編譯環境？"><span class="title">如何在Ubuntu 24.04構建i686交叉編譯環境？</span></a></div></section></div>
+    <div class="related-posts"><a class="item" href="\posts\b4596633.html" title="總結一下個人的OI生涯"><span class="title">總結一下個人的OI生涯</span></a><a class="item" href="\posts\4a17b156.html" title="Hello World"><span class="title">Hello World</span></a></div></section></div>
 
 
 
@@ -196,7 +215,7 @@ Copyright © Since 2024
 
 
 
-<widget class="widget-wrapper slide-up toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目錄</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到頂部</span></a></div></widget>
+<widget class="widget-wrapper slide-up toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目錄</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%9D%E5%BF%85%E8%A6%81%E7%9A%84%E4%BE%9D%E8%B3%B4"><span class="toc-text">安裝必要的依賴</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BC%89%E5%8E%9F%E5%A7%8B%E7%A2%BC"><span class="toc-text">下載原始碼</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A8%AD%E5%AE%9A%E7%92%B0%E5%A2%83%E8%AE%8A%E6%95%B8"><span class="toc-text">設定環境變數</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B7%A8%E8%AD%AF%E5%AE%89%E8%A3%9DBinutils%E8%88%87GCC"><span class="toc-text">編譯安裝Binutils與GCC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%92%B0%E5%A2%83%E8%AE%8A%E6%95%B8%EF%BC%88%E6%B0%B8%E4%B9%85%E7%94%9F%E6%95%88%EF%BC%89"><span class="toc-text">配置環境變數（永久生效）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E5%B0%BE"><span class="toc-text">結尾</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到頂部</span></a></div></widget>
 </div></aside><div class='float-panel'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
